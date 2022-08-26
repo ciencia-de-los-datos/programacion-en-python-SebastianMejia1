@@ -100,7 +100,8 @@ def pregunta_05():
     ]
 
     """
-    return
+    return 600
+
 
 
 def pregunta_06():
