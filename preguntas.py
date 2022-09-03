@@ -13,6 +13,10 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 """
 
 
+from asyncore import read
+
+
+
 def pregunta_01():
     """
     Retorne la suma de la segunda columna.
@@ -21,7 +25,27 @@ def pregunta_01():
     214
 
     """
-    return 500
+import csv
+with open("data.csv", "r") as file:
+    Datos = file.readlines()
+Datos=[line.replace("\n","")for line in Datos]
+Datos=[line.split("\t")for line in Datos]
+
+suma=0
+for i in range(len(Datos)):
+    suma += int(Datos[i][1])
+
+return(suma) 
+
+
+    
+
+
+
+
+
+
+
 
 
 def pregunta_02():
