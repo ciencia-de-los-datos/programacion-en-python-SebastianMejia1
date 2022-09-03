@@ -35,7 +35,8 @@ suma=0
 for i in range(len(Datos)):
     suma += int(Datos[i][1])
 
-return(suma) 
+print(suma) 
+
 
 
     
