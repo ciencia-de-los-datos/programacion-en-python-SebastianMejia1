@@ -13,6 +13,7 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 """
 
 
+from ast import IsNot
 from asyncore import read
 
 
@@ -35,18 +36,8 @@ suma=0
 for i in range(len(Datos)):
     suma += int(Datos[i][1])
 
-print(suma) 
-
-
-
-    
-
-
-
-
-
-
-
+print(suma)
+return suma
 
 
 def pregunta_02():
@@ -64,7 +55,18 @@ def pregunta_02():
     ]
 
     """
-    return
+    cantidad = {}
+    letras = []
+
+    for z in Datos:
+        if z[0] not in cantidad:
+            cantidad[z[0]]= 1
+        else:
+             cantidad[z[0]]= cantidad[z[0]]+1
+    
+    letras = list(cantidad.items())
+    letras.sort()
+    return letras
 
 
 def pregunta_03():
@@ -82,7 +84,19 @@ def pregunta_03():
     ]
 
     """
-    return
+    cantidadd = {}
+    letrass = []
+
+    for z in Datos:
+        if z[0] not in cantidadd:
+            cantidadd[z[0]]= int(z[1])
+        else:
+             cantidadd[z[0]]= cantidadd[z[0]]+ int(z[1])
+    
+    letrass = list(cantidadd.items())
+    letrass.sort()
+    return letrass
+    
 
 
 def pregunta_04():
@@ -107,7 +121,24 @@ def pregunta_04():
     ]
 
     """
-    return
+    listaa =[z[2].replace("-",",") for z in Datos]
+    listaa = [z.split(",") for z in listaa]
+
+    dic_mes = {}
+    listr =[]
+
+    for z in listaa:
+        if z[1] not in dic_mes:
+            dic_mes[x[1]]=1
+        else:
+            dic_mes[x[1]]= dic_mes[x[1]]+1
+
+    listr= list(dic_mes.items())
+    listr.sort()
+    
+
+    return listr
+    
 
 
 def pregunta_05():
@@ -125,7 +156,22 @@ def pregunta_05():
     ]
 
     """
-    return 600
+    Datos5= open("data.csv", "r").readlines()
+    Datos5 = [z.replace("\n", "") for z in Datos5]
+    Datos5 = [z.split("\t") for z in Datos5]
+    Datos5 = [z[:2] for z in Datos5]
+    
+    Dic5={}
+    for letra,valor in Datos5:
+        valor=int(valor)
+        if letra in Dic5.keys():
+            Dic5[letra].append(valor)
+        else:
+            Dic5[letra]=[valor]
+    Dic5=[(key,max(valor),min(valor)) for key, valor in Dic5.items()]
+    respuesta = Dic5.sort()
+    return respuesta
+   
 
 
 
@@ -151,7 +197,36 @@ def pregunta_06():
     ]
 
     """
-    return
+
+    def maxandmin(letras,numeros):
+        lista = []
+        for i in unique(letras):
+            k = []
+            cont = 0
+            for j in letras:
+                if (i == j):
+                    k.append(numeros[cont])
+                    cont = cont + 1
+                else:
+                    cont = cont + 1
+        lista.append((i,max(k),min(k)))
+        lista.sort()    
+
+    Datos6 = [n[4] for n in Datos]
+    Datos6 = [n.replace("\n","") for n in Datos]
+    Datos6 = [n.split(",") for n in Datos]
+    k = []
+    t = []
+    for n in Datos6:
+    for j in n:
+    yy = j.split(":")
+    k.append(yy[0])
+    t.append(yy[1])
+    t = [int(n) for n in t]
+    p6 = maxandmin(k,t)
+    for y in p6:
+        print(str(y)[1:-1])
+    return (str(y)[1:-1])
 
 
 def pregunta_07():
@@ -223,7 +298,8 @@ def pregunta_09():
     }
 
     """
-    return
+   
+
 
 
 def pregunta_10():
@@ -244,7 +320,19 @@ def pregunta_10():
 
 
     """
-    return
+    with open("data.csv","r") as file:
+        Datos10=file.readlines()
+    data=[row.replace("\n","") for row in Datos10]
+    data=[row.split("\t") for row in Datos10]
+    
+    rta=[]
+    for i in Datos10:
+        letra=i[0]
+        valor1=i[3].split(",")
+        valor2=i[4].split(",")
+        tupla=(letra,len(valor1),len(valor2))
+        rta.append(tupla)
+    return rta
 
 
 def pregunta_11():
@@ -265,7 +353,26 @@ def pregunta_11():
 
 
     """
-    return
+    with open("data.csv","r") as file: 
+        Dato11 = file.readlines() 
+    Datos11 = [f.replace("\n","") for f in Datos11]
+    Datos11 = [row.split("\t") for row in Datos11]
+
+    D11 = [row[3] for row in Datos11]
+    D11 = [x.split(',') for x in D11]
+    lista11 = sorted(set([x[y] for x in D11 for y in range(len(x))]))
+
+    dic11 = dict()
+
+    for x in lista11:
+        for y in Datos11:
+            if x in y[3] and x not in dic11.keys():
+                dic[x] = int(y[1])
+            elif x in y[3]:
+                dic[x] +=int(y[1])   
+
+    return dic11
+    
 
 
 def pregunta_12():
@@ -283,4 +390,18 @@ def pregunta_12():
     }
 
     """
-    return
+    dic12 = {}
+    let = sorted(set([z[0] for z in Datos11]))
+    
+        for x in let:
+            for y in Datos11:
+                if x == y [0] and x not in dic12.keys():
+                    dic12[x] = sum([ int(i[4:]) for i in y[4].split(',')])
+                elif  x == y [0]:
+                    dic12[x] += sum([int(i[4:]) for i in y[4].split(',')])
+
+    return dic12
+    
+
+
+
