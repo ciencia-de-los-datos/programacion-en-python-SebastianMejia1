@@ -26,18 +26,18 @@ def pregunta_01():
     214
 
     """
-import csv
-with open("data.csv", "r") as file:
-    Datos = file.readlines()
-Datos=[line.replace("\n","")for line in Datos]
-Datos=[line.split("\t")for line in Datos]
+    import csv
+    with open("data.csv", "r") as file:
+        Datos = file.readlines()
+    Datos=[line.replace("\n","")for line in Datos]
+    Datos=[line.split("\t")for line in Datos]
 
-suma=0
-for i in range(len(Datos)):
-    suma += int(Datos[i][1])
+    suma=0
+    for i in range(len(Datos)):
+        suma += int(Datos[i][1])
 
-print(suma)
-return suma
+    print(suma)
+    return suma
 
 
 def pregunta_02():
@@ -218,14 +218,14 @@ def pregunta_06():
     k = []
     t = []
     for n in Datos6:
-    for j in n:
-    yy = j.split(":")
-    k.append(yy[0])
-    t.append(yy[1])
-    t = [int(n) for n in t]
-    p6 = maxandmin(k,t)
-    for y in p6:
-        print(str(y)[1:-1])
+        for j in n:
+            yy = j.split(":")
+            k.append(yy[0])
+            t.append(yy[1])
+            t = [int(n) for n in t]
+            p6 = maxandmin(k,t)
+            for y in p6:
+                print(str(y)[1:-1])
     return (str(y)[1:-1])
 
 
@@ -354,7 +354,7 @@ def pregunta_11():
 
     """
     with open("data.csv","r") as file: 
-        Dato11 = file.readlines() 
+        Datos11 = file.readlines() 
     Datos11 = [f.replace("\n","") for f in Datos11]
     Datos11 = [row.split("\t") for row in Datos11]
 
@@ -401,7 +401,3 @@ def pregunta_12():
                     dic12[x] += sum([int(i[4:]) for i in y[4].split(',')])
 
     return dic12
-    
-
-
-
