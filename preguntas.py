@@ -30,7 +30,6 @@ def pregunta_01():
     for i in range(len(Datos)):
         suma += int(Datos[i][1])
 
-    print(suma)
     return suma
 
     """
@@ -56,7 +55,6 @@ def pregunta_02():
     
     letras = list(cantidad.items())
     letras.sort()
-    print(letras)
     return letras
 
 
