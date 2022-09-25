@@ -191,7 +191,31 @@ def pregunta_05():
 
 
 def pregunta_06():
+    file = open("data.csv")
+    data = file.readlines()
+    max = {
 
+    }
+    min = {
+
+    }
+    for i in data:
+        fila = i.replace("\t", " ").split()
+        diccionarios=fila[4].split(",")
+        for j in diccionarios:
+            clave ,numero = j.split(":")
+            if clave in min:
+                if min[clave] > int(numero):
+                    min[clave] = int(numero)
+                elif max[clave] < int(numero):
+                    max[clave] = int(numero)
+            else:
+                min[clave] = int(numero)
+                max[clave] = int(numero)
+
+    lista=list(zip(min.keys(),min.values(),max.values()))
+    lista.sort()
+    return lista
 
     """
     La columna 5 codifica un diccionario donde cada cadena de tres letras corresponde a
@@ -240,6 +264,7 @@ def pregunta_07():
 
     """
     return
+
 
 
 def pregunta_08():
@@ -374,18 +399,17 @@ def pregunta_11():
 def pregunta_12():
 
 dic12 = {}
-    let = sorted(set([z[0] for z in Datos11]))
+let = sorted(set([z[0] for z in Datos11]))
     
-        for x in let:
-            for y in Datos11:
-                if x == y [0] and x not in dic12.keys():
-                    dic12[x] = sum([ int(i[4:]) for i in y[4].split(',')])
-                elif  x == y [0]:
-                    dic12[x] += sum([int(i[4:]) for i in y[4].split(',')])
-    
-    return dic12
+    for x in let:
+        for y in Datos11:
+            if x == y [0] and x not in dic12.keys():
+                dic12[x] = sum([ int(i[4:]) for i in y[4].split(',')])
+            elif  x == y [0]:
+                dic12[x] += sum([int(i[4:]) for i in y[4].split(',')])  
+return dic12
 
-    """
+"""
     Genere un diccionario que contengan como clave la columna 1 y como valor la suma de
     los valores de la columna 5 sobre todo el archivo.
 
