@@ -15,6 +15,7 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 
 from ast import IsNot
 from asyncore import read
+from typing import Dict
 
 
 
@@ -79,20 +80,26 @@ def pregunta_02():
 
 
 def pregunta_03():
+
     file = open("data.csv")
     Datos = file.readlines()
+    Datos = [num.replace("\n", "") for num in Datos]
+    Datos = [num.replace("\t", ",") for num in Datos]
+    Datos = [z.split(",") for z in Datos]
 
     cantidadd = {}
     letrass = []
+    
 
     for z in Datos:
         if z[0] not in cantidadd:
             cantidadd[z[0]]= int(z[1])
         else:
-             cantidadd[z[0]]= cantidadd[z[0]]+ int(z[1])
+            cantidadd[z[0]]= cantidadd[z[0]]+ int(z[1])
     
     letrass = list(cantidadd.items())
     letrass.sort()
+    print(letrass)
     return letrass
 
     """
@@ -116,6 +123,10 @@ def pregunta_03():
 def pregunta_04():
     file = open("data.csv")
     Datos = file.readlines()
+    Datos = [num.replace("\n", "") for num in Datos]
+    Datos = [num.replace("\t", ",") for num in Datos]
+    Datos = [z.split(",") for z in Datos]
+
 
     listaa =[z[2].replace("-",",") for z in Datos]
     listaa = [z.split(",") for z in listaa]
@@ -131,6 +142,7 @@ def pregunta_04():
 
     listr= list(dic_mes.items())
     listr.sort()
+    print(listr)
     return listr
 
     """
@@ -324,22 +336,25 @@ def pregunta_09():
 
 
 def pregunta_10():
-    with open("data.csv","r") as file:
-        Datos10=file.readlines()
+    Datos10= open("data.csv", "r").readlines()
     Datos10=[row.replace("\n","") for row in Datos10]
     Datos10=[row.split("\t") for row in Datos10]
     
+    letra=[]
+    valor1=[]
+    valor2=[]
     rta=[]
+
     for i in Datos10:
-        letra=i[0]
-        valor1=i[3].split(",")
-        valor2=i[4].split(",")
-        tupla=(letra,len(valor1),len(valor2))
-    rta.append(tupla)
-    print(rta)
+        letra.append(i[0])
+        col3= len(i[3].split(","))
+        valor1.append(col3)
+        col4= len(i[4].split(","))
+        valor2.append(col4)
+        rta = list(zip(letra,valor1,valor2))
+    
     return rta
-
-
+    
     """
     Retorne una lista de tuplas contengan por cada tupla, la letra de la columna 1 y la
     cantidad de elementos de las columnas 4 y 5.
@@ -362,18 +377,22 @@ def pregunta_10():
 
 def pregunta_11():
 
-    with open("data.csv","r") as file: 
-        Datos11 = file.readlines() 
-    Datos11 = [f.replace("\n","") for f in Datos11]
-    Datos11 = [row.split("\t") for row in Datos11]
-
-    D11 = [row[3] for row in Datos11]
-    D11 = [x.split(',') for x in D11]
-    lista11 = sorted(set([x[y] for x in D11 for y in range(len(x))]))
-
-    dic11 = dict()
-
-    return dic11
+    Datos11= open("data.csv", "r").readlines()
+    
+    rta = dict()
+    for i in Datos11:
+        fila = i.replace("\t", " ").split()
+        claves = fila[3].split(",")
+        valor = int(fila[1])
+        for j in claves:
+            if j in rta:
+                rta[j] += valor
+            else:
+                rta[j] = valor
+    rta = dict(sorted(rta.items()))
+    
+    
+    return rta
 
     """
     Retorne un diccionario que contengan la suma de la columna 2 para cada letra de la
@@ -397,8 +416,7 @@ def pregunta_11():
 
 
 def pregunta_12():
-    with open("data.csv","r") as file: 
-        Datos12 = file.readlines() 
+    Datos12= open("data.csv", "r").readlines() 
     Datos12 = [f.replace("\n","") for f in Datos12]
     Datos12 = [row.split("\t") for row in Datos12]
 
