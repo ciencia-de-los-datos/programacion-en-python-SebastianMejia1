@@ -13,7 +13,26 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 """
 
 
+from ast import IsNot
+from asyncore import read
+from typing import Dict
+
+
+
 def pregunta_01():
+
+    import csv
+    with open("data.csv", "r") as file:
+        Datos = file.readlines()
+    Datos=[line.replace("\n","")for line in Datos]
+    Datos=[line.split("\t")for line in Datos]
+
+    suma=0
+    for i in range(len(Datos)):
+        suma += int(Datos[i][1])
+    
+    return suma
+
     """
     Retorne la suma de la segunda columna.
 
@@ -21,10 +40,28 @@ def pregunta_01():
     214
 
     """
-    return
+    
 
 
 def pregunta_02():
+    file = open("data.csv")
+    Datos = file.readlines()
+
+    cantidad = {}
+    letras = []
+
+    for z in Datos:
+        if z[0] not in cantidad:
+            cantidad[z[0]]= 1
+        else:
+             cantidad[z[0]]= cantidad[z[0]]+1
+    
+    letras = list(cantidad.items())
+    letras.sort()
+   
+    return letras
+
+
     """
     Retorne la cantidad de registros por cada letra de la primera columna como la lista
     de tuplas (letra, cantidad), ordendas alfabéticamente.
@@ -39,10 +76,32 @@ def pregunta_02():
     ]
 
     """
-    return
+    
 
 
 def pregunta_03():
+
+    file = open("data.csv")
+    Datos = file.readlines()
+    Datos = [num.replace("\n", "") for num in Datos]
+    Datos = [num.replace("\t", ",") for num in Datos]
+    Datos = [z.split(",") for z in Datos]
+
+    cantidadd = {}
+    letrass = []
+    
+
+    for z in Datos:
+        if z[0] not in cantidadd:
+            cantidadd[z[0]]= int(z[1])
+        else:
+            cantidadd[z[0]]= cantidadd[z[0]]+ int(z[1])
+    
+    letrass = list(cantidadd.items())
+    letrass.sort()
+    print(letrass)
+    return letrass
+
     """
     Retorne la suma de la columna 2 por cada letra de la primera columna como una lista
     de tuplas (letra, suma) ordendas alfabeticamente.
@@ -57,10 +116,35 @@ def pregunta_03():
     ]
 
     """
-    return
+    
+    
 
 
 def pregunta_04():
+    file = open("data.csv")
+    Datos = file.readlines()
+    Datos = [num.replace("\n", "") for num in Datos]
+    Datos = [num.replace("\t", ",") for num in Datos]
+    Datos = [z.split(",") for z in Datos]
+
+
+    listaa =[z[2].replace("-",",") for z in Datos]
+    listaa = [z.split(",") for z in listaa]
+
+    dic_mes = {}
+    listr =[]
+
+    for z in listaa:
+        if z[1] not in dic_mes:
+            dic_mes[z[1]]=1
+        else:
+            dic_mes[z[1]]= dic_mes[z[1]]+1
+
+    listr= list(dic_mes.items())
+    listr.sort()
+    print(listr)
+    return listr
+
     """
     La columna 3 contiene una fecha en formato `YYYY-MM-DD`. Retorne la cantidad de
     registros por cada mes, tal como se muestra a continuación.
@@ -82,10 +166,29 @@ def pregunta_04():
     ]
 
     """
-    return
+    
+
+    
 
 
 def pregunta_05():
+
+    Datos5= open("data.csv", "r").readlines()
+    Datos5 = [z.replace("\n", "") for z in Datos5]
+    Datos5 = [z.split("\t") for z in Datos5]
+    Datos5 = [z[:2] for z in Datos5]
+    
+    Dic5={}
+    for letra,valor in Datos5:
+        valor=int(valor)
+        if letra in Dic5.keys():
+            Dic5[letra].append(valor)
+        else:
+            Dic5[letra]=[valor]
+    Dic5=[(key,max(valor),min(valor)) for key, valor in Dic5.items()]
+    Dic5.sort()
+    return Dic5
+    
     """
     Retorne una lista de tuplas con el valor maximo y minimo de la columna 2 por cada
     letra de la columa 1.
@@ -100,10 +203,39 @@ def pregunta_05():
     ]
 
     """
-    return
+    
+    
+   
+
 
 
 def pregunta_06():
+    file = open("data.csv")
+    data = file.readlines()
+    max = {
+
+    }
+    min = {
+
+    }
+    for i in data:
+        fila = i.replace("\t", " ").split()
+        diccionarios=fila[4].split(",")
+        for j in diccionarios:
+            clave ,numero = j.split(":")
+            if clave in min:
+                if min[clave] > int(numero):
+                    min[clave] = int(numero)
+                elif max[clave] < int(numero):
+                    max[clave] = int(numero)
+            else:
+                min[clave] = int(numero)
+                max[clave] = int(numero)
+
+    lista=list(zip(min.keys(),min.values(),max.values()))
+    lista.sort()
+    return lista
+
     """
     La columna 5 codifica un diccionario donde cada cadena de tres letras corresponde a
     una clave y el valor despues del caracter `:` corresponde al valor asociado a la
@@ -125,7 +257,8 @@ def pregunta_06():
     ]
 
     """
-    return
+
+   
 
 
 def pregunta_07():
@@ -150,6 +283,7 @@ def pregunta_07():
 
     """
     return
+
 
 
 def pregunta_08():
@@ -197,10 +331,30 @@ def pregunta_09():
     }
 
     """
-    return
+   
+
 
 
 def pregunta_10():
+    Datos10= open("data.csv", "r").readlines()
+    Datos10=[row.replace("\n","") for row in Datos10]
+    Datos10=[row.split("\t") for row in Datos10]
+    
+    letra=[]
+    valor1=[]
+    valor2=[]
+    rta=[]
+
+    for i in Datos10:
+        letra.append(i[0])
+        col3= len(i[3].split(","))
+        valor1.append(col3)
+        col4= len(i[4].split(","))
+        valor2.append(col4)
+        rta = list(zip(letra,valor1,valor2))
+    
+    return rta
+    
     """
     Retorne una lista de tuplas contengan por cada tupla, la letra de la columna 1 y la
     cantidad de elementos de las columnas 4 y 5.
@@ -218,10 +372,28 @@ def pregunta_10():
 
 
     """
-    return
+    
 
 
 def pregunta_11():
+
+    Datos11= open("data.csv", "r").readlines()
+    
+    rta = dict()
+    for i in Datos11:
+        fila = i.replace("\t", " ").split()
+        claves = fila[3].split(",")
+        valor = int(fila[1])
+        for j in claves:
+            if j in rta:
+                rta[j] += valor
+            else:
+                rta[j] = valor
+    rta = dict(sorted(rta.items()))
+    
+    
+    return rta
+
     """
     Retorne un diccionario que contengan la suma de la columna 2 para cada letra de la
     columna 4, ordenadas alfabeticamente.
@@ -239,22 +411,40 @@ def pregunta_11():
 
 
     """
-    return
+    
+    
 
 
 def pregunta_12():
-    """
-    Genere un diccionario que contengan como clave la columna 1 y como valor la suma de
-    los valores de la columna 5 sobre todo el archivo.
+    Datos12= open("data.csv", "r").readlines() 
+    Datos12 = [f.replace("\n","") for f in Datos12]
+    Datos12 = [row.split("\t") for row in Datos12]
 
-    Rta/
-    {
-        'A': 177,
-        'B': 187,
-        'C': 114,
-        'D': 136,
-        'E': 324
+    dict12 = {
+
     }
+    let = sorted(set([z[0] for z in Datos12]))
+        
+    for x in let:
+            for y in Datos12:
+                if x == y [0] and x not in dict12.keys():
+                    dict12[x] = sum([ int(i[4:]) for i in y[4].split(',')])
+                elif  x == y [0]:
+                    dict12[x] += sum([int(i[4:]) for i in y[4].split(',')])  
+    
+    return dict12
 
     """
-    return
+        Genere un diccionario que contengan como clave la columna 1 y como valor la suma de
+        los valores de la columna 5 sobre todo el archivo.
+
+        Rta/
+        {
+            'A': 177,
+            'B': 187,
+            'C': 114,
+            'D': 136,
+            'E': 324
+        }
+
+        """ 
