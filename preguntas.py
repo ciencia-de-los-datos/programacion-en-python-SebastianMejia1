@@ -168,6 +168,7 @@ def pregunta_05():
             Dic5[letra]=[valor]
     Dic5=[(key,max(valor),min(valor)) for key, valor in Dic5.items()]
     Dic5.sort()
+    print(Dic5)
     return Dic5
     
     """
@@ -319,8 +320,8 @@ def pregunta_09():
 def pregunta_10():
     with open("data.csv","r") as file:
         Datos10=file.readlines()
-    data=[row.replace("\n","") for row in Datos10]
-    data=[row.split("\t") for row in Datos10]
+    Datos10=[row.replace("\n","") for row in Datos10]
+    Datos10=[row.split("\t") for row in Datos10]
     
     rta=[]
     for i in Datos10:
@@ -398,28 +399,30 @@ def pregunta_11():
 
 def pregunta_12():
 
-dic12 = {}
-let = sorted(set([z[0] for z in Datos11]))
-    
-    for x in let:
-        for y in Datos11:
-            if x == y [0] and x not in dic12.keys():
-                dic12[x] = sum([ int(i[4:]) for i in y[4].split(',')])
-            elif  x == y [0]:
-                dic12[x] += sum([int(i[4:]) for i in y[4].split(',')])  
-return dic12
+    dict12 = {
 
-"""
-    Genere un diccionario que contengan como clave la columna 1 y como valor la suma de
-    los valores de la columna 5 sobre todo el archivo.
-
-    Rta/
-    {
-        'A': 177,
-        'B': 187,
-        'C': 114,
-        'D': 136,
-        'E': 324
     }
+    let = sorted(set([z[0] for z in Datos11]))
+        
+    for x in let:
+            for y in Datos11:
+                if x == y [0] and x not in dict12.keys():
+                    dict12[x] = sum([ int(i[4:]) for i in y[4].split(',')])
+                elif  x == y [0]:
+                    dict12[x] += sum([int(i[4:]) for i in y[4].split(',')])  
+    return dict12
 
     """
+        Genere un diccionario que contengan como clave la columna 1 y como valor la suma de
+        los valores de la columna 5 sobre todo el archivo.
+
+        Rta/
+        {
+            'A': 177,
+            'B': 187,
+            'C': 114,
+            'D': 136,
+            'E': 324
+        }
+
+        """ 
