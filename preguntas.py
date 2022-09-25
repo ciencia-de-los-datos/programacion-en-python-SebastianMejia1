@@ -29,7 +29,7 @@ def pregunta_01():
     suma=0
     for i in range(len(Datos)):
         suma += int(Datos[i][1])
-
+    
     return suma
 
     """
@@ -43,6 +43,8 @@ def pregunta_01():
 
 
 def pregunta_02():
+    file = open("data.csv")
+    Datos = file.readlines()
 
     cantidad = {}
     letras = []
@@ -55,6 +57,7 @@ def pregunta_02():
     
     letras = list(cantidad.items())
     letras.sort()
+   
     return letras
 
 
@@ -76,6 +79,8 @@ def pregunta_02():
 
 
 def pregunta_03():
+    file = open("data.csv")
+    Datos = file.readlines()
 
     cantidadd = {}
     letrass = []
@@ -109,6 +114,8 @@ def pregunta_03():
 
 
 def pregunta_04():
+    file = open("data.csv")
+    Datos = file.readlines()
 
     listaa =[z[2].replace("-",",") for z in Datos]
     listaa = [z.split(",") for z in listaa]
@@ -168,7 +175,6 @@ def pregunta_05():
             Dic5[letra]=[valor]
     Dic5=[(key,max(valor),min(valor)) for key, valor in Dic5.items()]
     Dic5.sort()
-    print(Dic5)
     return Dic5
     
     """
@@ -367,13 +373,6 @@ def pregunta_11():
 
     dic11 = dict()
 
-    for x in lista11:
-        for y in Datos11:
-            if x in y[3] and x not in dic11.keys():
-                dic11[x] = int(y[1])
-            elif x in y[3]:
-                dic11[x] +=int(y[1])   
-    
     return dic11
 
     """
@@ -398,18 +397,23 @@ def pregunta_11():
 
 
 def pregunta_12():
+    with open("data.csv","r") as file: 
+        Datos12 = file.readlines() 
+    Datos12 = [f.replace("\n","") for f in Datos12]
+    Datos12 = [row.split("\t") for row in Datos12]
 
     dict12 = {
 
     }
-    let = sorted(set([z[0] for z in Datos11]))
+    let = sorted(set([z[0] for z in Datos12]))
         
     for x in let:
-            for y in Datos11:
+            for y in Datos12:
                 if x == y [0] and x not in dict12.keys():
                     dict12[x] = sum([ int(i[4:]) for i in y[4].split(',')])
                 elif  x == y [0]:
                     dict12[x] += sum([int(i[4:]) for i in y[4].split(',')])  
+    
     return dict12
 
     """
